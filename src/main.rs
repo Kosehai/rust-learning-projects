@@ -11,8 +11,17 @@ fn main() {
     let mut guesses: usize = 0;
     let mut correct = String::new();
     while guesses < 6 {
-        println!("{}", draw_game(word, correct.as_str(), guesses));
-        if correct == word{
+        println!("{}", draw_game(guesses));
+        let mut hidden = String::new();
+        for c in word.chars() {
+            if correct.contains(c){
+                hidden.push(c);
+            } else {
+                hidden.push('_');
+            }
+        }
+        println!("Your word: {}", hidden);
+        if !hidden.contains('_'){
             won = true;
             break;
         }
@@ -24,8 +33,8 @@ fn main() {
         guesses += 1;
     }
 
-    println!("{}", draw_game(word, correct.as_str(), guesses));
-
+    println!("{}", draw_game(guesses));
+    println!("Your word: {}", word);
     if won {
         println!("Congrats you won!!!!!!");
     } else {
@@ -33,19 +42,12 @@ fn main() {
     }
 }
 
-fn draw_game(word: &str, correct: &str, guesses: usize) -> String {
+fn draw_game(guesses: usize) -> String {
+    print!("{}[2J", 27 as char);
     let mut outstr = String::new();
     outstr.push_str(get_ascii(guesses).as_str());
-    outstr.push_str(format!("Wrong guesses: {}\n", guesses).as_str());
-    let mut hidden = String::new();
-    for c in word.chars() {
-        if correct.contains(c){
-            hidden.push(c);
-        } else {
-            hidden.push('_');
-        }
-    }
-    outstr.push_str(format!("Your word: {}", hidden).as_str());
+    outstr.push_str(format!("\nWrong guesses: {}\n", guesses).as_str());
+
     return outstr;
 }
 
