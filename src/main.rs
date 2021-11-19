@@ -105,13 +105,13 @@ fn get_ascii(i: usize) -> String {
   =========
   "#,
   r#"
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
+    +---+
+    |   |
+    O   |
+   /|\  |
+   / \  |
+        |
+  =========
 "#];
     return hangmanpics[i].to_string();
 }
